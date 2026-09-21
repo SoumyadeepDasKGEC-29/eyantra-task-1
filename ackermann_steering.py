@@ -19,11 +19,11 @@
 *****************************************************************************************
 '''
 
-# Team ID:          < Team-ID >
-# Author List:      < Names of the team members who worked on this file, comma separated >
+# Team ID:          < 4417 >
+# Author List:      < SOUMYADEEP DAS >
 # Filename:         ackermann_steering.py
 # Functions:        ackermann_wheel_angles
-# Global variables: < List any global variables you add, "None" if you add none >
+# Global variables: < NONE >
 
 
 ####################### IMPORT MODULES #######################
@@ -67,12 +67,21 @@ def ackermann_wheel_angles(delta):
     ---
     WHEEL_OFFSET changes the effective half-track width inside each wheel's triangle.
     '''
+
+    # Calculate the effective half-track width due to the wheel offset
+
     effective_half_track = (TRACK_WIDTH / 2.0) - WHEEL_OFFSET
+
+
+    # Handle the case when delta is zero to avoid division by zero
 
     if delta == 0.0:
         return 0.0, 0.0
 
+    #take absolute value to avoid negative turn radius
+
     abs_delta = abs(delta)
+
 
     turn_radius = WHEELBASE / math.tan(abs_delta)
 
@@ -80,9 +89,21 @@ def ackermann_wheel_angles(delta):
     outer_angle = math.atan2(WHEELBASE, turn_radius + effective_half_track)
     inner_angle = math.atan2(WHEELBASE, turn_radius - effective_half_track)
 
+    #Use the sign of delta to determine that the car is turning left or right and assign the angles accordingly
+    #Letf --> (+) , Right --> (-)
+    #and assign the outer and inner angles to the left and right wheels accordingly
+    if delta >0:
+        left_angle = inner_angle
+        right_angle = outer_angle
+    else:
+        left_angle = -outer_angle
+        right_angle = -inner_angle  
+
+    '''
     left_angle = inner_angle if delta > 0 else -outer_angle
     right_angle = outer_angle if delta > 0 else -inner_angle
-
+    '''
+    
     return left_angle, right_angle
 
 
