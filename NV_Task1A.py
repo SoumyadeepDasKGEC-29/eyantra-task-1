@@ -92,17 +92,14 @@ def ackermann_wheel_angles(delta):
     #Use the sign of delta to determine that the car is turning left or right and assign the angles accordingly
     #Letf --> (+) , Right --> (-)
     #and assign the outer and inner angles to the left and right wheels accordingly
-    if delta >0:
+    
+    if delta >0:    #delta positive --> Left turn --> Left wheel becomes inner wheel
         left_angle = inner_angle
         right_angle = outer_angle
-    else:
+    else:           #delta Negative --> right turn --> right wheel becomes inner wheel
         left_angle = -outer_angle
         right_angle = -inner_angle  
 
-    '''
-    left_angle = inner_angle if delta > 0 else -outer_angle
-    right_angle = outer_angle if delta > 0 else -inner_angle
-    '''
     
     return left_angle, right_angle
 
